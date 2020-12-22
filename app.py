@@ -57,7 +57,7 @@ if ENV == 'dev':
     # app.config['MAIL_USE_TLS'] = True
     # app.config['MAIL__USE_SSL'] = False
     # app.config['MAIL_USERNAME'] = connection['mail_user']
-    # app.config['MAIL_PASSWORD'] = connection['app_pass']
+    # app.config['MAIL_PASSWORD'] = connection['mail_pass']
 
 else:
     app.debug = False
