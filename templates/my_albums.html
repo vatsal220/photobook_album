@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Collection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="{{ url_for('home') }}">Collection</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+			<!-- Nav -->
+				<nav id="menu">
+					<ul class="links">
+						{% if current_user.is_authenticated %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('account') }}">My Account</a></li>
+							<li><a href="{{ url_for('my_albums') }}">My Albums</a></li>
+							<li><a href="{{ url_for('logout') }}">Logout</a></li>
+						{% else %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+							<li><a href="{{ url_for('login') }}">Login</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+        <!-- Main -->
+        {% if current_user.is_authenticated %}
+
+			<div id="main">
+				<!-- Three -->
+                    <section id="three" class="wrapper style1 special">
+                        <div class="inner">
+                            <header class="major narrow	">
+                                <h1>Hello {{current_user.username}}</h1>
+                                <h2>Create an Album</h2>
+                            </header>
+                            <ul class="action">
+                                <form method="POST" action = "{{ url_for('my_albums') }}">
+                                    <input type="text" name="album_name" placeholder= "Album Name" required="required"><br />
+                                <input type="submit" value="Create Album" >
+                                </form>
+
+                            </ul>
+                        </div>
+
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                        {% for message in messages %}
+                                        <h3>{{ message }}</h3>
+                                        {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                        </div>
+                    </section>
+
+
+        
+                <!-- Three -->
+                    <section id="three" class="wrapper style1 special">
+                        
+                    <div class="inner">
+                        <h2>My Albums</h2>
+                        <div class="container">
+                            <div class="row">
+                                {% for a in album_list %}
+                                    <div class="col-sm gallery-item">
+                                        <!-- <input type="submit" value="{{a}}" href="{{ url_for('home') }}"> -->
+                                        <a href="{{ url_for('album', username = current_user.username, album_name = a) }}" class="button big scrolly">{{a}}</a>
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    </section>
+        {% endif %}
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					<ul class="icons">
+						<li><a href="https://github.com/vatsal220" class="icon fa-github"></a></li>
+						<li><a href="https://www.vatsalp.com/" class="icon fa-male"></a></li>
+						<li><a href="https://www.linkedin.com/in/vatsal-p-a57978149/" class="icon fa-linkedin"></a></li>
+					</ul>
+					<p>&copy; <a>Vatsal</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+				</div>
+			</footer>
+			
+			<script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/skel.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/jquery.scrollex.min.js') }}"></script>
+	</body>
+</html>
+

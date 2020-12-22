@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Collection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="{{ url_for('home') }}">Collection</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+			<!-- Nav -->
+				<nav id="menu">
+					<ul class="links">
+						{% if current_user.is_authenticated %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('account') }}">My Account</a></li>
+							<li><a href="{{ url_for('album') }}">Album</a></li>
+							<li><a href="{{ url_for('logout') }}">Logout</a></li>
+						{% else %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+							<li><a href="{{ url_for('login') }}">Login</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+		<!-- Main -->
+			<div id="main">
+				<!-- Three -->
+					<section id="three" class="wrapper style1 special">
+						<div class="inner">
+							<header class="major narrow	">
+								<h2>Login</h2>
+							</header>
+							<ul class="action">
+
+								<br></br>
+								<p> </p>
+								<button type="submit" class="button big alt">Log In</button>
+								<p> </p>
+								<p><a href="{{ url_for('reset_request') }}" small class="button small small">Forgot Password</a></p>
+
+							</ul>
+						</div>
+					</section>
+		</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					<ul class="icons">
+						<li><a href="https://github.com/vatsal220" class="icon fa-github"></a></li>
+						<li><a href="https://www.vatsalp.com/" class="icon fa-male"></a></li>
+						<li><a href="https://www.linkedin.com/in/vatsal-p-a57978149/" class="icon fa-linkedin"></a></li>
+					</ul>
+					<p>&copy; <a>Vatsal</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="static/js/jquery.min.js"></script>
+			<script src="static/js/jquery.scrolly.min.js"></script>
+			<script src="static/js/jquery.scrollex.min.js"></script>
+			<script src="static/js/skel.min.js"></script>
+			<script src="static/js/util.js"></script>
+			<script src="static/js/main.js"></script>
+
+	</body>
+</html>

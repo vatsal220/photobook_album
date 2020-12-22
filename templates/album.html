@@ -1,0 +1,109 @@
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Collection</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+	</head>
+	<body class="subpage">
+
+		<!-- Header -->
+			<header id="header">
+				<div class="logo"><a href="{{ url_for('home') }}">Collection</a></div>
+				<a href="#menu">Menu</a>
+			</header>
+
+			<!-- Nav -->
+				<nav id="menu">
+					<ul class="links">
+						{% if current_user.is_authenticated %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('account') }}">My Account</a></li>
+							<li><a href="{{ url_for('my_albums') }}">My Albums</a></li>
+							<li><a href="{{ url_for('logout') }}">Logout</a></li>
+						{% else %}
+							<li><a href="{{ url_for('home') }}">Home</a></li>
+							<li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+							<li><a href="{{ url_for('login') }}">Login</a></li>
+						{% endif %}
+					</ul>
+				</nav>
+
+		<!-- Main -->
+		{% if current_user.is_authenticated %}
+			<div id="main">
+				<!-- Three -->
+					<section id="three" class="wrapper style1 special">
+						<div class="inner">
+							<header class="major narrow	">
+								<h2>{{ album_name }}</h2>
+							</header>
+							<form method="POST" action = "{{ url_for('album', username = current_user.username, album_name = album_name) }}" enctype="multipart/form-data">
+								
+								{{ wtf.form_field(form.image_f, placeholder = "Title of your image", class = 'button small alt') }}
+								{{ wtf.form_field(form.name, placeholder = "Title of your image") }}
+								{{ wtf.form_field(form.caption, placeholder = "Caption your image") }}
+								<p></p>
+								{{ form.post (class = 'button big alt') }}
+	
+							</form>
+						</div>
+					</section>
+			</div>
+
+			<div id="main">
+				<section id="three" class="wrapper style1 special">
+					<div class="container">
+						<div class="row" id="gallery" data-toggle="modal">
+					
+							<div class="col-lg-12"></div>
+							{% for p in posts %}
+							<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+								<a  href="{{url_for('post_detail', id=p.id) }}">
+									<img src="/{{p.post_url}}" class="img-responsive" style="width: 22vw; min-width: 330px; padding: 10px; height: 350px;">
+								</a>
+								
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<div id="main">
+					<section id="three" class="wrapper style1 special">
+						{% if current_user.is_authenticated %}
+							<ul class="action">
+								<a href="{{url_for('delete_album', album_name = album_name, album_id = album_id)}}" class="button big scrolly">Delete Album</a>
+							</ul>
+					  	{% endif %}
+					</section>
+			</div>
+		{% endif %}
+
+				
+
+		<!-- Footer -->
+			<footer id="footer">
+				<div class="copyright">
+					<ul class="icons">
+						<li><a href="https://github.com/vatsal220" class="icon fa-github"></a></li>
+						<li><a href="https://www.vatsalp.com/" class="icon fa-male"></a></li>
+						<li><a href="https://www.linkedin.com/in/vatsal-p-a57978149/" class="icon fa-linkedin"></a></li>
+					</ul>
+					<p>&copy; <a>Vatsal</a>. Images: <a href="https://unsplash.com">Unsplash</a>.</p>
+				</div>
+			</footer>
+			
+			<script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/skel.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/util.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/main.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/jquery.scrolly.min.js') }}"></script>
+			<script src="{{ url_for('static', filename = 'js/jquery.scrollex.min.js') }}"></script>
+
+	</body>
+</html>
